@@ -34,7 +34,20 @@ const loginUser = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    try {
+        if (!req?.params?.id || req?.params?.id === '') {
+            return ApiError(StatusCodes.BAD_REQUEST, 'User id is required', res)
+        }
+        const user = await userService.getUserById(req?.params?.id);
+        ApiSuccess(StatusCodes.OK, { user }, res);
+    } catch (err) {
+        ApiError(StatusCodes.BAD_REQUEST, err?.toString(), res);
+    }
+}
+
 module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    getUserById,
 }

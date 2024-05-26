@@ -7,12 +7,13 @@ const Property = sequelize.define('Property', {
     property_id: {
         type: DataTypes.STRING,
         primaryKey: true,
+        unique: true,
     },
     property_type: {
         type: DataTypes.STRING,
         values: PROPERTY_TYPE,
     },
-    user_id: {
+    seller_id: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -81,6 +82,11 @@ const Property = sequelize.define('Property', {
         defaultValue: true,
     },
     no_of_likes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: true,
+    },
+    no_of_comments: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
         allowNull: true,

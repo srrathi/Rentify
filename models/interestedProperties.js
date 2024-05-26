@@ -3,7 +3,8 @@ const { sequelize } = require('../database/db');
 
 const InterestedProperty = sequelize.define('InterestedProperty', {
     id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
         autoIncrement: true,
         allowNull: false,
         unique: true

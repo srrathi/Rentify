@@ -4,7 +4,8 @@ const { INTERACTION_TYPES } = require('./utils');
 
 const PropertyInteractions = sequelize.define('PropertyInteractions', {
     id: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
         autoIncrement: true,
         allowNull: false,
         unique: true

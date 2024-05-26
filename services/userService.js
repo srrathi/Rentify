@@ -46,7 +46,26 @@ const loginUser = async (data) => {
     }
 }
 
+const getUserById = async (id) => {
+    try {
+        const user = await User.findOne({
+            where: { user_id: id, is_active: true }
+        });
+
+        console.log("User", user);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const data = { user_id: user.user_id, email: user.email, first_name: user.first_name, last_name: user.last_name, phone: user.phone, profile_image: user.profile_image, user_type: user.user_type }
+        return data;
+    } catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    getUserById,
 }

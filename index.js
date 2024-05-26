@@ -21,7 +21,17 @@ passport.use('jwt', jwtStrategy);
 // Routes
 app.get('/health', (req, res) => {
     res.status(StatusCodes.OK).json({ message: "server running fine" })
-})
+});
+
+app.use(function (req, res, next) {
+    res.setTimeout(60000, function () {
+        console.log('Request has timed out.');
+        res.sendStatus(StatusCodes.REQUEST_TIMEOUT);
+    });
+
+    next();
+});
+
 app.use('/api/v1', routes);
 
 async function startServer() {

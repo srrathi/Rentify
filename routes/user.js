@@ -4,8 +4,6 @@ const router = express.Router();
 
 router.post('/register', userController.createUser);
 router.post('/login', userController.loginUser)
-
-// get user by id API
-
+router.get('/:id', userController.getUserById);
 
 module.exports = router;
