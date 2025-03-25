@@ -11,6 +11,7 @@ const app = express();
 const port = process.env.PORT ?? 9001;
 const routes = require('./routes');
 const InitializeCrons = require('./crons');
+const { swaggerUi, specs } = require('./docs/swagger');
 
 
 app.use(express.json())
@@ -34,6 +35,8 @@ app.use(function (req, res, next) {
 
     next();
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 app.use('/api/v1', routes);
 
