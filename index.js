@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const { StatusCodes } = require('http-status-codes');
 const morgan = require('morgan');
@@ -9,11 +10,13 @@ const { jwtStrategy } = require('./config/passport');
 const app = express();
 const port = process.env.PORT ?? 9001;
 const routes = require('./routes');
+const InitializeCrons = require('./crons');
 
 
 app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'));
+app.use(cookieParser());
 // jwt authentication
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
@@ -39,7 +42,8 @@ async function startServer() {
         await sequelize.authenticate();
         console.log('Connection to the database has been established successfully.');
 
-        await syncModels();
+        // await syncModels();
+        InitializeCrons();
 
         app.listen(port, () => {
             console.log(`Server listening on port ${port}`);
