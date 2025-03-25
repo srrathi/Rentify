@@ -5,7 +5,7 @@ const authenticate = require('../middlewares/auth');
 const router = express.Router();
 
 // get all properties with pagination, filters and sorting
-router.post('/all', authenticate, propertyController.getAllProperties);
+router.post('/all', propertyController.getAllProperties);
 
 // get property by id - property + interations count
 router.get('/:id', authenticate, propertyController.getPropertyById);

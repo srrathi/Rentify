@@ -14,7 +14,13 @@ const createUser = async (req, res) => {
         }
         const user = await userService.createUser(req?.body);
         const tokens = await tokenService.generateAuthTokens(user);
-        ApiSuccess(StatusCodes.CREATED, { user, tokens }, res)
+        
+        res.cookie('refreshToken', tokens.refresh, { httpOnly: true, secure: true });  
+        const resp = {
+            user,
+            accessToken: tokens?.access
+        }
+        ApiSuccess(StatusCodes.OK, resp, res);
     } catch (err) {
         ApiError(StatusCodes.BAD_REQUEST, err?.toString(), res)
     }
@@ -28,7 +34,13 @@ const loginUser = async (req, res) => {
         }
         const user = await userService.loginUser(req?.body);
         const tokens = await tokenService.generateAuthTokens(user);
-        ApiSuccess(StatusCodes.OK, { user, tokens }, res);
+
+        res.cookie('refreshToken', tokens.refresh, { httpOnly: true, secure: true });  
+        const resp = {
+            user,
+            accessToken: tokens?.access
+        }
+        ApiSuccess(StatusCodes.OK, resp, res);
     } catch (err) {
         ApiError(StatusCodes.BAD_REQUEST, err?.toString(), res)
     }
@@ -46,8 +58,28 @@ const getUserById = async (req, res) => {
     }
 }
 
+const refreshToken = async (req, res) => {
+    try {
+        const refreshToken = req.cookies?.refreshToken;
+        if (!refreshToken) {
+            return ApiError(StatusCodes.UNAUTHORIZED, 'Please authenticate', res);
+        }
+        const data = await userService.refreshToken(refreshToken);
+
+        res.cookie('refreshToken', data.tokens.refresh, { httpOnly: true, secure: true });
+        const resp = {
+            user: data?.user,
+            accessToken: data?.tokens?.access
+        }
+        ApiSuccess(StatusCodes.OK, resp, res);
+    } catch (err) {
+        ApiError(StatusCodes.BAD_REQUEST, err?.toString(), res);
+    }
+};
+
 module.exports = {
     createUser,
     loginUser,
     getUserById,
+    refreshToken,
 }

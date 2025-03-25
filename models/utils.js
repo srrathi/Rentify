@@ -6,6 +6,10 @@ const INTERACTION_TYPES = [
     'comment'
 ]
 
+const TOKEN_TYPES = {
+    REFRESH: 'refresh'
+}
+
 const PRICE_TYPES = [
     'daily',
     'monthly',
@@ -30,4 +34,5 @@ module.exports = {
     PRICE_TYPES,
     PROPERTY_TYPE,
     INTERACTION_TYPES,
+    TOKEN_TYPES,
 }

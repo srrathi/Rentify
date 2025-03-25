@@ -7,7 +7,7 @@ const verifyCallback = (req, resolve, reject) => async (err, user, info) => {
     if (err || info || !user) {
         return reject('Please authenticate');
     }
-    if (req.params.user_id !== user.user_id && user.user_type !== USER_TYPE_SELLER) {
+    if (req.params.user_id !== user.user_id && user.user_type !== USER_TYPE_SELLER || user.blacklisted) {
         return reject('Please register a seller account to add your property');
     }
     req.user = user;

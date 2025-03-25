@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const { v4 } = require('uuid');
 const User = require('../models/user');
+const { generateAuthTokens, verifyToken } = require('./tokenService');
+const { ApiError } = require('../controllers/utils');
 
 const createUser = async (data) => {
     try {
@@ -62,10 +64,26 @@ const getUserById = async (id) => {
     } catch (err) {
         throw err;
     }
-}
+};
+
+const refreshToken = async (refreshToken) => {
+    try {
+        const refreshTokenDoc = await verifyToken(refreshToken, tokenTypes.REFRESH);
+        const user = await getUserById(refreshTokenDoc.user);
+        if (!user) {
+            throw new Error();
+        }
+        await refreshTokenDoc.destroy();
+        const tokens = await generateAuthTokens(user);
+        return { user, tokens };
+    } catch (error) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    }
+};
 
 module.exports = {
     createUser,
     loginUser,
     getUserById,
+    refreshToken,
 }

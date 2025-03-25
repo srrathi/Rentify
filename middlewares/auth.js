@@ -6,7 +6,7 @@ const verifyCallback = (req, resolve, reject) => async (err, user, info) => {
     if (err || info || !user) {
         return reject('Please authenticate');
     }
-    if (req.params.user_id !== user.user_id) {
+    if (req.params.user_id !== user.user_id || user.blacklisted) {
         return reject('Forbidden path');
     }
     req.user = user;
