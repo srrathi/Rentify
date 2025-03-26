@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
             user,
             accessToken: tokens?.access
         }
-        ApiSuccess(StatusCodes.OK, resp, res);
+        ApiSuccess(StatusCodes.CREATED, resp, res);
     } catch (err) {
         ApiError(StatusCodes.BAD_REQUEST, err?.toString(), res)
     }
