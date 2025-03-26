@@ -16,13 +16,17 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               first_name:
+ *                 type: string
+ *               last_name:
  *                 type: string
  *               email:
  *                 type: string
  *               password:
  *                 type: string
- *               role:
+ *               phone:
+ *                 type: string
+ *               user_type:
  *                 type: string
  *                 enum: [buyer, seller]
  *     responses:
