@@ -45,7 +45,7 @@ async function startServer() {
         await sequelize.authenticate();
         console.log('Connection to the database has been established successfully.');
 
-        // await syncModels();
+        await syncModels();
         InitializeCrons();
 
         app.listen(port, () => {

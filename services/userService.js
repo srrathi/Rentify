@@ -19,7 +19,7 @@ const createUser = async (data) => {
         const hashedPass = await bcrypt.hash(password, salt);
         const user_id = v4();
         const profile_image = `https://api.multiavatar.com/${first_name}.svg`
-        const user = await User.create({ user_id, email, password, first_name, last_name, phone, profile_image, user_type, password: hashedPass });
+        const user = await User.create({ user_id, email, first_name, last_name, phone, profile_image, user_type, password: hashedPass });
         delete user?.dataValues?.password;
         return user;
     } catch (err) {
