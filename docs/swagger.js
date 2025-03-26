@@ -15,6 +15,10 @@ const options = {
                 url: 'http://localhost:9001',
                 description: 'Local Server',
             },
+            {
+                url: "https://rentify-9h9k.onrender.com",
+                description: 'Production Server',
+            },
         ],
     },
     apis: ['./routes/**/*.js'], // Path to API docs
