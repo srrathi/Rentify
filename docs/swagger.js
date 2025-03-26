@@ -12,11 +12,11 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:9001',
+                url: 'http://localhost:9001/api/v1',
                 description: 'Local Server',
             },
             {
-                url: "https://rentify-9h9k.onrender.com",
+                url: "https://rentify-9h9k.onrender.com/api/v1",
                 description: 'Production Server',
             },
         ],
