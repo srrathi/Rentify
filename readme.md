@@ -1,6 +1,6 @@
 # Rentify Server
 
-![Node.js](https://img.shields.io/badge/Node.js-v16.x-green)
+![Node.js](https://img.shields.io/badge/Node.js-v20.x-green)
 ![Express.js](https://img.shields.io/badge/Express.js-4.x-blue)
 ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-yellow)
 
